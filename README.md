@@ -17,6 +17,11 @@ This project aims to change the background of a given image with a centered obje
 Input:  
 * name of chosen image file
 * chosen effect
+* (optional) name of image for background change
 
 Output:  
 * altered image
+
+### Example 
+This is an example of the effect the project aims to achive:
+![Filter example](https://raw.githubusercontent.com/kakomarina/background-effects/master/filter_example_boy.jpg)
