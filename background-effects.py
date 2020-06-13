@@ -41,4 +41,33 @@ grayscale_img = imageio.imread(filename, as_gray=True)
 grayscale_img = median_filter(grayscale_img)
 # calculating histogram so it's possible to use histogram based thresholding methods
 hist = histogram(grayscale_img)
-print(np.argmax(hist))
+peak = np.argmax(hist)
+
+if 255 - pico > pico:
+    # pico está mais perto do começo
+    end = 254
+    index = np.arange(pico, 254)
+else:
+    # pico está mais perto do final
+    index = np.arange(0, pico)
+    end = 0
+
+
+def get_y(xi):
+    m = (hist_a[end] - hist_a[pico]) / (end - pico)
+    b = hist_a[end] - m * end
+
+    return (m * xi) + b
+
+
+h = -1
+split = 0
+for i in index:
+    y1 = abs(get_y(i))
+    h_temp = y1 - hist_a[i]
+
+    if h_temp > h:
+        h = h_temp
+        split = i
+
+map = grayscale_img > split
