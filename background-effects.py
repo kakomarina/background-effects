@@ -3,7 +3,6 @@ import imageio
 
 
 def histogram(img, no_levels=255):
-    N, M = img.shape
     hist = np.zeros(no_levels).astype(int)
 
     # computes for all levels in the range
@@ -26,7 +25,7 @@ def median_filter(img, k=5):
     r = np.zeros(img.shape)
     for x in np.arange(a, img.shape[0] - a + 1):
         for y in np.arange(a, img.shape[1] - a + 1):
-            med_region = np.median(img[x - a : x + a + 1, y - a : y + a + 1])
+            med_region = np.median(img[x - a: x + a + 1, y - a: y + a + 1])
             r[x, y] = med_region
 
     return r
