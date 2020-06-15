@@ -1,6 +1,7 @@
 import numpy as np
 import imageio
 from triangule_threshold import *
+from background_blur import *
 
 
 filename = str(input())
@@ -13,3 +14,7 @@ grayscale_img_preprocessed = median_filter(grayscale_img)
 # calculating histogram so it's possible to use histogram based thresholding methods
 
 boolean_img = triangule_threshold(grayscale_img_preprocessed)
+
+blur_img = backgroud_blur(grayscale_img_preprocessed, boolean_img)
+
+imageio.imwrite("output_img.png", blur_img)
