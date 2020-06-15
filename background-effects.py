@@ -1,7 +1,7 @@
 import numpy as np
 import imageio
 from triangule_threshold import *
-from background_blur import *
+from change_background import *
 
 
 filename = str(input())
@@ -15,6 +15,10 @@ grayscale_img_preprocessed = median_filter(grayscale_img)
 
 boolean_img = triangule_threshold(grayscale_img_preprocessed)
 
-blur_img = backgroud_blur(grayscale_img_preprocessed, boolean_img)
+bg_name = str(input())
+bg_grayscale = imageio.imread(bg_name, as_gray=True)
 
-imageio.imwrite("output_img.png", blur_img)
+img_bg_changed = change_background(
+    grayscale_img_preprocessed, bg_grayscale, boolean_img)
+
+imageio.imwrite("output_img.png", img_bg_changed)
