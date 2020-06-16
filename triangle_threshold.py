@@ -4,6 +4,8 @@ import math
 # using the equation of a straight line y = mx + b
 # to calculate the points in the line between the peak
 # and the end of the histogram
+
+
 def get_y(xi, peak, end, hist):
     m = (hist[end] - hist[peak]) / (end - peak)
     b = hist[end] - m * end
@@ -41,7 +43,7 @@ def median_filter(img, k=5):
     r = np.zeros(img.shape)
     for x in np.arange(a, img.shape[0] - a + 1):
         for y in np.arange(a, img.shape[1] - a + 1):
-            med_region = np.median(img[x - a : x + a + 1, y - a : y + a + 1])
+            med_region = np.median(img[x - a: x + a + 1, y - a: y + a + 1])
             r[x, y] = med_region
 
     return r
@@ -81,4 +83,4 @@ def triangle_threshold(img):
             split = i
 
     # return image with the threshold applied
-    return split
+    return (img) > split
