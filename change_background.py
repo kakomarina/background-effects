@@ -6,7 +6,7 @@ def left_to_rigth(img, background, bool_img):
 
     for x in range(0, N):
         y = 0
-        while y < N and bool_img[x][y] == False:
+        while y < M and bool_img[x][y] == False:
             y += 1
         for y in range(y, M):
             if bool_img[x][y] == False:
