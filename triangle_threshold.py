@@ -60,7 +60,7 @@ def triangle_threshold(img):
     else:
         # peak is closer to the end, so triangle must face the beggining
         end = 0
-        index = np.arange(0, peak)
+        index = np.arange(1, peak)
 
     d_max = -1
     split = 0

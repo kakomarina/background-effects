@@ -1,12 +1,15 @@
 import numpy as np
+from resizeimage import resizeimage
+import matplotlib.pyplot as plt
+from skimage import transform
 
 
-def left_to_rigth(img, background, bool_img):
+def left_to_right(img, background, bool_img):
     N, M = bool_img.shape
 
     for x in range(0, N):
         y = 0
-        while y < N and bool_img[x][y] == False:
+        while y < M and bool_img[x][y] == False:
             y += 1
         for y in range(y, M):
             if bool_img[x][y] == False:
@@ -35,7 +38,7 @@ def right_to_left(img, background, bool_img):
 
 def change_background(img, background, bool_img):
 
-    img = left_to_rigth(img, background, bool_img)
+    img = left_to_right(img, background, bool_img)
     img = right_to_left(img, background, bool_img)
 
     return img
