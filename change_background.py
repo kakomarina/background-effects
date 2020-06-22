@@ -1,8 +1,10 @@
 import numpy as np
-from resizeimage import resizeimage
 import matplotlib.pyplot as plt
 from skimage import transform
 
+def resizeBackground(background,N,M):
+    background_resized = np.resize(background,(N,M))
+    return background_resized
 
 def left_to_right(img, background, bool_img):
     N, M = bool_img.shape
@@ -36,9 +38,15 @@ def right_to_left(img, background, bool_img):
     return img
 
 
-def change_background(img, background, bool_img):
 
-    img = left_to_right(img, background, bool_img)
+#<<<<<<< Updated upstream
+#    img = left_to_right(img, background, bool_img) # NAO SEI PRA QUE ISSO SERVE, TAVA NO MERGE Q DEU CONFLITO
+#=======
+def change_background(img, background, bool_img):
+    
+    N, M = img.shape
+    background = resizeBackground(background,N,M)
+    img = left_to_rigth(img, background, bool_img)
     img = right_to_left(img, background, bool_img)
 
     return img
