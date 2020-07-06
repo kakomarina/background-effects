@@ -1,7 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Jun 26 15:19:20 2020
+Created on Mon Jul  6 20:36:26 2020
 
+@author: Fuso
+"""
+
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Jun 26 15:19:20 2020
 @author: Fuso
 """
 
@@ -15,7 +21,7 @@ from triangle_threshold import *
 from change_background import *
 
 def background_effects():
-    global filename, bg_filename, tag
+    global filename, bg_filename, root2, root1
     #filename = str(input())
    # reading original image, where the effect is going to be apllied,
     # and grayscale, where the segmentation is going to take place
@@ -32,10 +38,22 @@ def background_effects():
     bg = imageio.imread(bg_filename)
 
     img_bg_changed = change_background(img, bg, boolean_img)
+    
+    
+    imageio.imwrite("output_img_teste_real.png", img_bg_changed)
+    
+    destroy_root(root1)
+    
+    root2 = tkr.Tk()
+    root2.geometry("500x500")
+    w = tkr.Label(root2, text="Processo concluído!",font=large_font)
+    w.pack(pady=(160,0))
+    w = tkr.Button(root2, text = "Fechar", command = getInput, height = 2, width = 30)
+    w.pack(pady=(20,0))
+    
+    root2.mainLoop()
 
-    imageio.imwrite("output_img.png", img_bg_changed)
-    tag =1
-
+    
 
 def motion(event):
     x, y = event.x, event.y
@@ -43,11 +61,6 @@ def motion(event):
     print('{}, {}'.format(x, y))
  #   else:
  #       print('solto {}, {}'.format(x, y))
-
-def _from_rgb(rgb):
-    """translates an rgb tuple of int to a tkinter friendly color code
-    """
-    return "#%02x%02x%02x" % rgb
 
 def callback(event):
 #    global onClick
@@ -70,24 +83,20 @@ def onClickFalse(event):
     onClick = False
 
 def image_interface():
-    global filename, colors
+    global filename, colors, root1
 
-    root = tkr.Tk()
-    tag = 0
+    root1 = tkr.Tk()
   
-    canvas = tkr.Canvas(root, width=largura, height=altura)
+    canvas = tkr.Canvas(root1, width=largura, height=altura)
     canvas.grid()
     img = ImageTk.PhotoImage(Image.open(filename))  
     canvas.create_image(0, 0, anchor="nw", image=img) 
-    root.bind('<Motion>', motion)
-    root.bind('<Button-1>', callback)
-    w = tkr.Button(root, text = "Concluir", command = background_effects, height = 2, width = 30)
+    root1.bind('<Motion>', motion)
+    root1.bind('<Button-1>', callback)
+    w = tkr.Button(root1, text = "Concluir", command = background_effects, height = 2, width = 30)
     w.grid(row=altura,column=0)
-    if tag == 1:
-        print("acabou")
-        destroy_root(root)
     
-    root.mainloop()
+    root1.mainloop()
     
 def getInput():
 
@@ -102,6 +111,9 @@ def getInput():
 #filename = str(input()).rstrip()#reads Image File
 filename = "girl1.jpg"
 bg_filename = "bg_mata.jpg"
+
+root1 = 0
+root2 = 0
 
 input_img = imageio.imread(filename)
 img = np.array(input_img)
