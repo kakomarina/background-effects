@@ -19,4 +19,4 @@ def clustering(img):
 
     cluster_img = img2show.reshape(img.shape[0], img.shape[1], img.shape[2])
 
-    return normalize(cluster_img, 255, 0)
+    return normalize(cluster_img.astype(np.uint8), 255, 0)
