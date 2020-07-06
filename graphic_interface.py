@@ -16,7 +16,8 @@ from change_background import *
 
 def background_effects():
     global filename, bg_filename, tag
-    # reading original image, where the effect is going to be apllied,
+    #filename = str(input())
+   # reading original image, where the effect is going to be apllied,
     # and grayscale, where the segmentation is going to take place
     input_img = imageio.imread(filename)
     img = imageio.imread(filename)
@@ -27,13 +28,13 @@ def background_effects():
 
     boolean_img = triangle_threshold(img_gray_preprocessed)
 
+    #bg_name = str(input())
     bg = imageio.imread(bg_filename)
-    
+
     img_bg_changed = change_background(img, bg, boolean_img)
 
     imageio.imwrite("output_img.png", img_bg_changed)
-    
-    tag = 1
+    tag =1
 
 
 def motion(event):
@@ -100,8 +101,7 @@ def getInput():
 
 #filename = str(input()).rstrip()#reads Image File
 filename = "girl1.jpg"
-bg_filename = "bg_fogo"
-
+bg_filename = "bg_mata.jpg"
 
 input_img = imageio.imread(filename)
 img = np.array(input_img)
