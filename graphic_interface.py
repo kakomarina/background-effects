@@ -61,12 +61,14 @@ def onClickFalse(event):
 def image_interface():
     global filename
     root = tkr.Tk()
-    canvas = tkr.Canvas(root, width=largura, height=altura)
+    canvas = tkr.Canvas(root, width=largura+60, height=altura)
     canvas.grid()
     img = ImageTk.PhotoImage(Image.open(filename))  
     canvas.create_image(0, 0, anchor="nw", image=img) 
+    color_frame = tkr.Frame(root, bg = "red")
     root.bind('<Motion>', motion)
     root.bind('<Button-1>', callback)
+    w = tkr.Button(root, bg="blue")
     root.mainloop()
   
 def destroy_root(root):
@@ -101,5 +103,4 @@ e = w= tkr.Entry(root,width="30", font=large_font)
 w.pack(ipady=10, pady=(10,10))
 w = tkr.Button(root, text = "Enviar", command = getInput, height = 2, width = 30)
 w.pack()
-print(e)
 root.mainloop()
