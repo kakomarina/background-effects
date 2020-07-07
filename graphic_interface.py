@@ -64,29 +64,23 @@ def background_effects():
     output_filename = "output_img_teste_real.png"
     imageio.imwrite(output_filename, img_bg_changed)
     
-    
-    
     root2 = tkr.Tk()
-    root2.geometry("500x500")
+    '''root2.geometry("500x500")
     
     w = tkr.Label(root2, text = "Processo concluído", font='bold')
     w.pack(pady=(160,30))
     w = tkr.Button(root2, text = "Fechar", command = close_interface, height = 2, width = 20)
     w.pack()
-    root2.mainloop()
-'''
-    canvas2 = tkr.Canvas(root2, width=largura, height=altura)
-    canvas2.grid()
+    root2.mainloop()'''
+    
+    canvas = tkr.Canvas(root2, width=largura, height=altura)
+    canvas.grid()
     final_img = ImageTk.PhotoImage(Image.open(output_filename))  
-    canvas.create_image(0, 0, anchor="nw", image=final_img) 
+    canvas.create_image(0, 0, anchor="nw", image=final_img)
+    w = tkr.Button(root2, text = "Concluir", command = close_interface, height = 2, width = 30)
+    w.grid(row=altura,column=0)
     
-    w = tkr.Label(root2, text="Processo concluído!",font=large_font)
-    w.grid(row=altura,column=1)
-    rw = tkr.Button(root1, text = "Concluir", command = background_effects, height = 2, width = 30)
-    w.grid(row=altura,column=2)
-   ''' 
-
-    
+    root2.mainloop()    
 
 def motion(event):
     x, y = event.x, event.y
