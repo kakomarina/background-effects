@@ -20,11 +20,31 @@ from skimage.color import rgb2gray
 from triangle_threshold import *
 from change_background import *
 
+def destroy_root(root):
+    root.destroy()
+    
+def close_interface():
+    global root2
+    destroy_root(root2)
+    
+def clear(root):
+    list = root.grid_slaves()
+    for l in list:
+        l.destroy()
+        
 def background_effects():
-    global filename, bg_filename, root2, root1
+    global filename, bg_filename, root2, root1, canvas, largura, altura, large_font, main_img
+    
     #filename = str(input())
    # reading original image, where the effect is going to be apllied,
-    # and grayscale, where the segmentation is going to take place
+    # and grayscale, where the segmentation is going to take place 
+   
+    print("chegou aqui")
+    print(large_font)
+    label = tkr.Label(root1, text="Processando...",font=large_font)
+    label.grid(row=altura,column=0)
+    root1.update()
+    
     input_img = imageio.imread(filename)
     img = imageio.imread(filename)
     img_gray = imageio.imread(filename, as_gray=True)
@@ -39,19 +59,32 @@ def background_effects():
 
     img_bg_changed = change_background(img, bg, boolean_img)
     
-    
-    imageio.imwrite("output_img_teste_real.png", img_bg_changed)
-    
     destroy_root(root1)
+    
+    output_filename = "output_img_teste_real.png"
+    imageio.imwrite(output_filename, img_bg_changed)
+    
+    
     
     root2 = tkr.Tk()
     root2.geometry("500x500")
-    w = tkr.Label(root2, text="Processo concluído!",font=large_font)
-    w.pack(pady=(160,0))
-    w = tkr.Button(root2, text = "Fechar", command = getInput, height = 2, width = 30)
-    w.pack(pady=(20,0))
     
-    root2.mainLoop()
+    w = tkr.Label(root2, text = "Processo concluído", font='bold')
+    w.pack(pady=(160,30))
+    w = tkr.Button(root2, text = "Fechar", command = close_interface, height = 2, width = 20)
+    w.pack()
+    root2.mainloop()
+'''
+    canvas2 = tkr.Canvas(root2, width=largura, height=altura)
+    canvas2.grid()
+    final_img = ImageTk.PhotoImage(Image.open(output_filename))  
+    canvas.create_image(0, 0, anchor="nw", image=final_img) 
+    
+    w = tkr.Label(root2, text="Processo concluído!",font=large_font)
+    w.grid(row=altura,column=1)
+    rw = tkr.Button(root1, text = "Concluir", command = background_effects, height = 2, width = 30)
+    w.grid(row=altura,column=2)
+   ''' 
 
     
 
@@ -74,22 +107,19 @@ def callback(event):
     colors.append(pixel[x,y])
     print(colors)
     
-
-def destroy_root(root):
-    root.destroy()
-    
 def onClickFalse(event):
     global onClick
     onClick = False
 
 def image_interface():
-    global filename, colors, root1
+    global filename, colors, root1, canvas, main_img
 
     root1 = tkr.Tk()
   
     canvas = tkr.Canvas(root1, width=largura, height=altura)
     canvas.grid()
     img = ImageTk.PhotoImage(Image.open(filename))  
+    main_img =  ImageTk.PhotoImage(Image.open(filename))  
     canvas.create_image(0, 0, anchor="nw", image=img) 
     root1.bind('<Motion>', motion)
     root1.bind('<Button-1>', callback)
@@ -112,8 +142,11 @@ def getInput():
 filename = "girl1.jpg"
 bg_filename = "bg_mata.jpg"
 
+#declaring global variables (different master for each graphic interface), global canva
 root1 = 0
 root2 = 0
+canvas = 0
+main_img = 0
 
 input_img = imageio.imread(filename)
 img = np.array(input_img)
