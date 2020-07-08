@@ -4,13 +4,6 @@ Created on Mon Jul  6 20:36:26 2020
 
 @author: Fuso
 """
-
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Jun 26 15:19:20 2020
-@author: Fuso
-"""
-
  
 import tkinter as tkr
 from PIL import ImageTk,Image 
@@ -35,43 +28,37 @@ def clear(root):
 def background_effects():
     global filename, bg_filename, root2, root1, canvas, largura, altura, large_font, main_img
     
-    #filename = str(input())
-   # reading original image, where the effect is going to be apllied,
+    # reading original image, where the effect is going to be apllied,
     # and grayscale, where the segmentation is going to take place 
-   
-    print("chegou aqui")
+
     print(large_font)
     label = tkr.Label(root1, text="Processando...",font=large_font)
     label.grid(row=altura,column=0)
     root1.update()
     
-    input_img = imageio.imread(filename)
-    img = imageio.imread(filename)
+
+    girl_original = imageio.imread(filename)
     img_gray = imageio.imread(filename, as_gray=True)
+
     # using median filter to pre-process the image and reduce noise
     img_gray_preprocessed = median_filter(img_gray)
     # calculating histogram so it's possible to use histogram based thresholding methods
 
     boolean_img = triangle_threshold(img_gray_preprocessed)
 
-    #bg_name = str(input())
     bg = imageio.imread(bg_filename)
-
+    
     img_bg_changed = change_background(img, bg, boolean_img)
+
+    imageio.imwrite("output_img.png", img_bg_changed)
     
     destroy_root(root1)
     
+    #fogo = imageio.imread("bg_fogo.jpg")
     output_filename = "output_img_teste_real.png"
     imageio.imwrite(output_filename, img_bg_changed)
     
     root2 = tkr.Tk()
-    '''root2.geometry("500x500")
-    
-    w = tkr.Label(root2, text = "Processo concluído", font='bold')
-    w.pack(pady=(160,30))
-    w = tkr.Button(root2, text = "Fechar", command = close_interface, height = 2, width = 20)
-    w.pack()
-    root2.mainloop()'''
     
     canvas = tkr.Canvas(root2, width=largura, height=altura)
     canvas.grid()
@@ -101,10 +88,6 @@ def callback(event):
     colors.append(pixel[x,y])
     print(colors)
     
-def onClickFalse(event):
-    global onClick
-    onClick = False
-
 def image_interface():
     global filename, colors, root1, canvas, main_img
 
@@ -152,7 +135,7 @@ altura, largura, profundidade = img.shape
 colors = []
 #onClick = False
 root = tkr.Tk()
-##### codigo ficava aqui
+
 root.geometry("500x500")
 small_font = ('Verdana',"10")
 large_font = ('Verdana',"13")
