@@ -153,7 +153,7 @@ w = tkr.Label(root, text="Como Usar", font="bold")
 w.pack(pady=(10, 0))
 w = tkr.Label(
     root,
-    text="Insira o nome do arquivo da imagem desejada.\n Depois que a imagem aparecer, clique em todas as área\n que você deseja que apareça na foto com o fundo \nalterado e aperte no botão Concluir. A foto\n estará salva no seu computador com o nome output.png",
+    text="Insira o nome do arquivo da imagem desejada.\n Depois que a imagem aparecer, clique em todas as áreas\n que você deseja que apareça na foto com o fundo \nalterado e aperte no botão Concluir. A foto\n estará salva no seu computador com o nome output.png",
     anchor=tkr.NW,
     font=small_font,
 )
@@ -169,7 +169,7 @@ w.pack(ipady=10, pady=(10, 10))
 
 # second input: name of the new background file
 # text
-w = tkr.Label(root, text="Insira o nome do arquivo do plano de fundo desejada.", font=large_font)
+w = tkr.Label(root, text="Insira o nome do arquivo do plano de fundo desejado.", font=large_font)
 w.pack()
 # input
 bg_name = w = tkr.Entry(root, width="30", font=large_font)
