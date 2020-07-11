@@ -23,5 +23,5 @@ Output:
 * altered image
 
 ### Example 
-This is an example of the effect the project aims to achive:
+This is an example of the effect the project aims to achieve:
 ![Filter example](https://raw.githubusercontent.com/kakomarina/background-effects/master/filter_example_boy.jpg)
