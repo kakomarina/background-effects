@@ -11,43 +11,14 @@ def resize_background(background, N, M, C):
     return background_resized
 
 
-def left_to_right(img, background, bool_img):
-    N, M = bool_img.shape
+def change_background(img_original, background, clustered_img, colors_to_change):
 
-    for x in range(0, N):
-        y = 0
-        while y < M and bool_img[x][y] == False:
-            y += 1
-        for y in range(y, M):
-            if bool_img[x][y] == False:
-                break
-            else:
-                img[x][y] = background[x][y]
-
-    return img
-
-
-def right_to_left(img, background, bool_img):
-    N, M = bool_img.shape
-
-    for x in range(N - 1, 0, -1):
-        y = M - 1
-        while y >= 0 and bool_img[x][y] == False:
-            y -= 1
-        for y in range(y, 0, -1):
-            if bool_img[x][y] == False:
-                break
-            else:
-                img[x][y] = background[x][y]
-
-    return img
-
-
-def change_background(img, background, bool_img):
-
-    N, M, C = img.shape
+    N, M, C = img_original.shape
     background = resize_background(background, N, M, C)
-    img = left_to_right(img, background, bool_img)
-    img = right_to_left(img, background, bool_img)
+    img_bg_changed = np.array(img_original, copy=True)
 
-    return img
+    for color in colors_to_change:
+        img_bg_changed = np.where(
+            clustered_img == color, background, img_bg_changed)
+
+    return img_bg_changed
