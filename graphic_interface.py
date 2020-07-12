@@ -31,8 +31,10 @@ def clear(root):
 
 
 def background_effects():
-    global filename, bg_name, root2, root1, canvas, largura, altura, large_font, main_img
-
+    global filename, bg_name, root2, root1, canvas, colors, largura, altura, large_font, img_clustered
+    
+    colors.pop()
+    
     # reading original image, where the effect is going to be apllied,
     # and grayscale, where the segmentation is going to take place
 
@@ -52,9 +54,9 @@ def background_effects():
     # bg = imageio.imread(bg_name)
     bg = Image.open(bg_name)
 
-    print("Generating clustered image...")
-    img_clustered = clustering(img_original)
-    imageio.imwrite("clustered_img.jpg", img_clustered.astype(np.uint8))
+    #print("Generating clustered image...")
+    #img_clustered = clustering(img_original)
+    #imageio.imwrite("clustered_img.jpg", img_clustered.astype(np.uint8))
 
     print("Changing background...")
     img_bg_changed = change_background(
@@ -64,7 +66,7 @@ def background_effects():
     destroy_root(root1)
 
     # fogo = imageio.imread("bg_fogo.jpg")
-    output_filename = "output_img_teste_real.png"
+    output_filename = "output_img.png"
     imageio.imwrite(output_filename, img_bg_changed)
 
     root2 = tkr.Tk()
@@ -91,28 +93,35 @@ def motion(event):
 
 
 def callback(event):
-    #    global onClick
-    #    onClick = True
+    global filename
+    
     print("clicked at", event.x, event.y)
     global x, y, colors, tag
     x = event.x
     y = event.y
-    im = Image.open("girl1.jpg")
+    im = Image.open(filename)
     pixel = im.load()
     colors.append(pixel[x, y])
     print(colors)
 
 
 def image_interface():
-    global filename, colors, root1, canvas, main_img
+    global filename, colors, root1, canvas, img_clustered
 
     root1 = tkr.Tk()
 
     canvas = tkr.Canvas(root1, width=largura, height=altura)
     canvas.grid()
-    img = ImageTk.PhotoImage(Image.open(filename))
-    main_img = ImageTk.PhotoImage(Image.open(filename))
-    canvas.create_image(0, 0, anchor="nw", image=img)
+    
+    img_original = imageio.imread(filename)
+    #img = ImageTk.PhotoImage(Image.open(filename))
+    print("Generating clustered image...")
+    img_clustered = clustering(img_original)
+    imageio.imwrite("clustered_img.jpg", img_clustered.astype(np.uint8))
+    
+    clust_img = ImageTk.PhotoImage(Image.open("clustered_img.jpg"))
+    
+    canvas.create_image(0, 0, anchor="nw", image=clust_img)
     root1.bind("<Motion>", motion)
     root1.bind("<Button-1>", callback)
     w = tkr.Button(root1, text="Concluir",
@@ -151,6 +160,7 @@ root1 = 0
 root2 = 0
 canvas = 0
 main_img = 0
+img_clustered = 0
 
 #input_img = imageio.imread(filename)
 #img = np.array(input_img)
