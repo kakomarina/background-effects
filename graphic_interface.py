@@ -37,7 +37,7 @@ def background_effects():
     # and grayscale, where the segmentation is going to take place
 
     print(large_font)
-    label = tkr.Label(root1, text="Processando...", font=large_font)
+    label = tkr.Label(root1, text="Loading...", font=large_font)
     label.grid(row=altura, column=0)
     root1.update()
 
@@ -73,7 +73,7 @@ def background_effects():
     canvas.grid()
     final_img = ImageTk.PhotoImage(Image.open(output_filename))
     canvas.create_image(0, 0, anchor="nw", image=final_img)
-    w = tkr.Button(root2, text="Concluir",
+    w = tkr.Button(root2, text="Finish",
                    command=close_interface, height=2, width=30)
     w.grid(row=altura, column=0)
 
@@ -97,7 +97,7 @@ def callback(event):
     global x, y, colors, tag
     x = event.x
     y = event.y
-    im = Image.open("girl1.jpg")
+    im = Image.open(filename) #girl1.jpg
     pixel = im.load()
     colors.append(pixel[x, y])
     print(colors)
@@ -115,7 +115,7 @@ def image_interface():
     canvas.create_image(0, 0, anchor="nw", image=img)
     root1.bind("<Motion>", motion)
     root1.bind("<Button-1>", callback)
-    w = tkr.Button(root1, text="Concluir",
+    w = tkr.Button(root1, text="Finish",
                    command=background_effects, height=2, width=30)
     w.grid(row=altura, column=0)
 
@@ -169,11 +169,11 @@ small_font = ("Verdana", "10")
 large_font = ("Verdana", "13")
 
 # top text: instructions about the program
-w = tkr.Label(root, text="Como Usar", font="bold")
+w = tkr.Label(root, text="Instructions", font="bold")
 w.pack(pady=(10, 0))
 w = tkr.Label(
     root,
-    text="Insira o nome do arquivo da imagem desejada.\n Depois que a imagem aparecer, clique em todas as áreas\n que você deseja que apareça na foto com o fundo \nalterado e aperte no botão Concluir. A foto\n estará salva no seu computador com o nome output.png",
+    text="Please write the name of the main image\n After the image appears, please click all areas\n that you wish to be shown in the final image \n with the new background and press Finish. \n The image will be saved in your computer with the name output.png",
     anchor=tkr.NW,
     font=small_font,
 )
@@ -182,7 +182,7 @@ w.pack()
 # first input: name of the image with the object to be used in new background
 # text
 w = tkr.Label(
-    root, text="Insira o nome do arquivo da imagem desejada.", font=large_font)
+    root, text="Please write the name of the main image file", font=large_font)
 w.pack(pady=(50, 0))
 # input
 img_name = w = tkr.Entry(root, width="30", font=large_font)
@@ -191,12 +191,12 @@ w.pack(ipady=10, pady=(10, 10))
 # second input: name of the new background file
 # text
 w = tkr.Label(
-    root, text="Insira o nome do arquivo do plano de fundo desejado.", font=large_font)
+    root, text="Please write the name of the background image file", font=large_font)
 w.pack()
 # input
 bg_name = w = tkr.Entry(root, width="30", font=large_font)
 w.pack(ipady=10, pady=(10, 10))
 
-w = tkr.Button(root, text="Enviar", command=getInput, height=2, width=30)
+w = tkr.Button(root, text="Finish", command=getInput, height=2, width=30)
 w.pack()
 root.mainloop()
