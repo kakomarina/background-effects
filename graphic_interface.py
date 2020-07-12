@@ -57,7 +57,7 @@ def background_effects():
 
     print("Changing background...")
     img_bg_changed = change_background(img_original, bg, img_clustered, colors)
-    imageio.imwrite("output_img.png", img_bg_changed)
+    imageio.imwrite("output_img.png", img_bg_changed.astype(np.uint8))
 
     destroy_root(root1)
 
@@ -95,7 +95,7 @@ def callback(event):
     global x, y, colors, tag
     x = event.x
     y = event.y
-    im = Image.open("woman-outside-brownstone.jpg")
+    im = Image.open("girl1.jpg")
     pixel = im.load()
     colors.append(pixel[x, y])
     print(colors)
@@ -131,7 +131,7 @@ def getInput():
 
 
 # filename = str(input()).rstrip()#reads Image File
-filename = "woman-outside-brownstone.jpg"
+filename = "girl1.jpg"
 bg_filename = "bg_mata.jpg"
 
 # declaring global variables (different master for each graphic interface), global canva
