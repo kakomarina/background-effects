@@ -12,7 +12,7 @@ def resize_background(background, N, M, C):
 
 
 def change_background(img_original, background, clustered_img, colors_to_change):
-
+    print(colors_to_change)
     N, M, C = img_original.shape
     background = resize_background(background, N, M, C)
     img_bg_changed = np.array(img_original, copy=True)

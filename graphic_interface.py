@@ -51,10 +51,12 @@ def background_effects():
 
     bg = imageio.imread(bg_filename)
 
+    print("Generating clustered image...")
     img_clustered = clustering(img_original)
-    img_bg_changed = change_background(
-        img_original, bg, img_clustered, colors)
+    imageio.imwrite("clustered_img.jpg", img_clustered.astype(np.uint8))
 
+    print("Changing background...")
+    img_bg_changed = change_background(img_original, bg, img_clustered, colors)
     imageio.imwrite("output_img.png", img_bg_changed)
 
     destroy_root(root1)
@@ -93,7 +95,7 @@ def callback(event):
     global x, y, colors, tag
     x = event.x
     y = event.y
-    im = Image.open("girl1.jpg")
+    im = Image.open("woman-outside-brownstone.jpg")
     pixel = im.load()
     colors.append(pixel[x, y])
     print(colors)
@@ -129,7 +131,7 @@ def getInput():
 
 
 # filename = str(input()).rstrip()#reads Image File
-filename = "girl1.jpg"
+filename = "woman-outside-brownstone.jpg"
 bg_filename = "bg_mata.jpg"
 
 # declaring global variables (different master for each graphic interface), global canva
@@ -141,9 +143,6 @@ main_img = 0
 input_img = imageio.imread(filename)
 img = np.array(input_img)
 img = img.astype(np.int32)  # casting para realizar as funcoes
-
-img_clustered = clustering(img)
-imageio.imwrite("clustered_img.jpg", img_clustered)
 
 
 # creates mold for final image
