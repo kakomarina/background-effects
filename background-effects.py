@@ -2,7 +2,7 @@ import numpy as np
 import imageio
 from skimage.color import rgb2gray
 from triangle_threshold import *
-from change_background import *
+from change_background_thresholding import *
 
 
 filename = str(input())

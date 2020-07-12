@@ -3,10 +3,10 @@ import matplotlib.pyplot as plt
 from skimage import transform
 
 
-def resize_background(background, N, M, C):
+def resize_background(background, M, N, C):
+
     background_resized = np.zeros((N, M, C))
-    for i in range(C):
-        background_resized[:, :, i] = np.resize(background[:, :, i], (N, M))
+    background_resized = background.resize((N, M))
 
     return background_resized
 
