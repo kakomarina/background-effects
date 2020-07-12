@@ -12,6 +12,7 @@ import imageio
 from skimage.color import rgb2gray
 from triangle_threshold import *
 from change_background import *
+from clusteringimgseg import *
 
 
 def destroy_root(root):
@@ -41,16 +42,18 @@ def background_effects():
     root1.update()
 
     img_original = imageio.imread(filename)
-    img_gray = imageio.imread(filename, as_gray=True)
+    # img_gray = imageio.imread(filename, as_gray=True)
 
     # using median filter to pre-process the image and reduce noise
-    img_gray_preprocessed = median_filter(img_gray)
+    # img_gray_preprocessed = median_filter(img_gray)
 
-    boolean_img = triangle_threshold(img_gray_preprocessed)
+    # boolean_img = triangle_threshold(img_gray_preprocessed)
 
     bg = imageio.imread(bg_filename)
 
-    img_bg_changed = change_background(img_original, bg, boolean_img)
+    img_clustered = clustering(img_original)
+    img_bg_changed = change_background(
+        img_original, bg, img_clustered, colors)
 
     imageio.imwrite("output_img.png", img_bg_changed)
 
@@ -66,7 +69,8 @@ def background_effects():
     canvas.grid()
     final_img = ImageTk.PhotoImage(Image.open(output_filename))
     canvas.create_image(0, 0, anchor="nw", image=final_img)
-    w = tkr.Button(root2, text="Concluir", command=close_interface, height=2, width=30)
+    w = tkr.Button(root2, text="Concluir",
+                   command=close_interface, height=2, width=30)
     w.grid(row=altura, column=0)
 
     root2.mainloop()
@@ -107,7 +111,8 @@ def image_interface():
     canvas.create_image(0, 0, anchor="nw", image=img)
     root1.bind("<Motion>", motion)
     root1.bind("<Button-1>", callback)
-    w = tkr.Button(root1, text="Concluir", command=background_effects, height=2, width=30)
+    w = tkr.Button(root1, text="Concluir",
+                   command=background_effects, height=2, width=30)
     w.grid(row=altura, column=0)
 
     root1.mainloop()
@@ -137,6 +142,10 @@ input_img = imageio.imread(filename)
 img = np.array(input_img)
 img = img.astype(np.int32)  # casting para realizar as funcoes
 
+img_clustered = clustering(img)
+imageio.imwrite("clustered_img.jpg", img_clustered)
+
+
 # creates mold for final image
 """background_effects(filename)"""
 altura, largura, profundidade = img.shape
@@ -161,7 +170,8 @@ w.pack()
 
 # first input: name of the image with the object to be used in new background
 # text
-w = tkr.Label(root, text="Insira o nome do arquivo da imagem desejada.", font=large_font)
+w = tkr.Label(
+    root, text="Insira o nome do arquivo da imagem desejada.", font=large_font)
 w.pack(pady=(50, 0))
 # input
 img_name = w = tkr.Entry(root, width="30", font=large_font)
@@ -169,7 +179,8 @@ w.pack(ipady=10, pady=(10, 10))
 
 # second input: name of the new background file
 # text
-w = tkr.Label(root, text="Insira o nome do arquivo do plano de fundo desejado.", font=large_font)
+w = tkr.Label(
+    root, text="Insira o nome do arquivo do plano de fundo desejado.", font=large_font)
 w.pack()
 # input
 bg_name = w = tkr.Entry(root, width="30", font=large_font)
