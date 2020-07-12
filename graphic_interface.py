@@ -49,8 +49,11 @@ def background_effects():
     boolean_img = triangle_threshold(img_gray_preprocessed)
 
     bg = imageio.imread(bg_name)
+    bg2 = Image.open(bg_name)
 
-    img_bg_changed = change_background(img_original, bg, boolean_img)
+    img_bg_changed1 = change_background(img_original, bg2, boolean_img)
+    imageio.imwrite("output_converting.jpg",img_bg_changed1)
+    img_bg_changed = imageio.imread("output_converting.jpg")
 
     imageio.imwrite("output_img.png", img_bg_changed)
 
