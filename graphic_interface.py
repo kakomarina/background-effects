@@ -30,7 +30,7 @@ def clear(root):
 
 
 def background_effects():
-    global filename, bg_filename, root2, root1, canvas, largura, altura, large_font, main_img
+    global filename, bg_name, root2, root1, canvas, largura, altura, large_font, main_img
 
     # reading original image, where the effect is going to be apllied,
     # and grayscale, where the segmentation is going to take place
@@ -48,7 +48,7 @@ def background_effects():
 
     boolean_img = triangle_threshold(img_gray_preprocessed)
 
-    bg = imageio.imread(bg_filename)
+    bg = imageio.imread(bg_name)
 
     img_bg_changed = change_background(img_original, bg, boolean_img)
 
@@ -115,17 +115,27 @@ def image_interface():
 
 def getInput():
 
-    global img_name, bg_name
+    global img_name, bg_name, largura, altura, profundidade, filename
+
     img = img_name.get()
     bg = bg_name.get()
-    print(img, bg)
+    filename = img
+    bg_name = bg
+    input_img = imageio.imread(filename)
+    img = np.array(input_img)
+    img = img.astype(np.int32)
+    altura, largura, profundidade = img.shape
+
+#    print(img, bg)
+
     destroy_root(root)
     image_interface()
 
 
-# filename = str(input()).rstrip()#reads Image File
-filename = "girl1.jpg"
-bg_filename = "bg_mata.jpg"
+#filename = str(input()).rstrip()#reads Image File
+
+#filename = "girl1.jpg"
+#bg_filename = "bg_mata.jpg"
 
 # declaring global variables (different master for each graphic interface), global canva
 root1 = 0
@@ -133,15 +143,15 @@ root2 = 0
 canvas = 0
 main_img = 0
 
-input_img = imageio.imread(filename)
-img = np.array(input_img)
-img = img.astype(np.int32)  # casting para realizar as funcoes
+#input_img = imageio.imread(filename)
+#img = np.array(input_img)
+#img = img.astype(np.int32)  # casting para realizar as funcoes
 
 # creates mold for final image
 """background_effects(filename)"""
-altura, largura, profundidade = img.shape
+#altura, largura, profundidade = img.shape
 colors = []
-# onClick = False
+#onClick = False
 root = tkr.Tk()
 
 root.geometry("500x500")
@@ -178,3 +188,7 @@ w.pack(ipady=10, pady=(10, 10))
 w = tkr.Button(root, text="Enviar", command=getInput, height=2, width=30)
 w.pack()
 root.mainloop()
+
+
+
+
