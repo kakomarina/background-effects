@@ -1,3 +1,7 @@
+#
+# Old main : before the graphic interface was implemented
+#
+
 import numpy as np
 import imageio
 from skimage.color import rgb2gray

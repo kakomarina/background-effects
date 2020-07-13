@@ -1,9 +1,6 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Jun 26 16:22:19 2020
-
-@author: Fuso
-"""
+#
+# File to test the movement and clicks of the mouse
+#
 
 from tkinter import  *
 

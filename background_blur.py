@@ -1,3 +1,10 @@
+#
+# Background blur function 
+# 
+# Unfortunately this function was not used in the final results
+#
+
+
 import numpy as np
 import math
 from copy import copy

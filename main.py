@@ -1,9 +1,9 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Jul  6 20:36:26 2020
+# MAIN
+#
+# Contains the graphic interface and the call to execute the image segmentation method and the background changes
+#
+#
 
-@author: Fuso
-"""
 
 import tkinter as tkr
 from PIL import ImageTk, Image
@@ -32,7 +32,7 @@ def background_effects():
 
     colors.pop()  # takes off last color of array colors (button "Finished" color)
 
-    # warns user tht the program is loading
+    # warns user that the program is loading
     label = tkr.Label(root1, text="Loading...", font=large_font)
     label.grid(row=altura, column=0)
     root1.update()
@@ -129,7 +129,7 @@ def image_interface():
     canvas.create_image(0, 0, anchor="nw", image=clust_img)
 
     # root1.bind("<Motion>", motion) #gets mouse location in the interface
-    # if the mouse is clicked, is called a function (getColor) to get the clicked pixel color
+    # if the mouse is clicked, a function (getColor) is called to get the clicked pixel color
     root1.bind("<Button-1>", getColor)
 
     # creates finish button -> calls background_effects
@@ -151,7 +151,7 @@ def getInput():  # gets input: filename (file name of person or object image) an
 
 
 # INTERFACE PAGE 0: INSTRUCTIONS AND INPUTS
-# global variables: masters for each interface page, canva of page 1, original image, clustered image, selected colors of clusteres image, font sizes
+# global variables: masters for each interface page, canva of page 1, original image, clustered image, selected colors of clustered image, font sizes
 
 root1 = 0  # master of interface page 1
 root2 = 0  # master of interface page 2
@@ -163,7 +163,7 @@ colors = []
 small_font = ("Verdana", "10")
 large_font = ("Verdana", "13")
 
-# begining of interface page 0
+# beginning of interface page 0
 
 root = tkr.Tk()  # root is the master of interface page 0
 root.geometry("500x500")  # defining dimension of interface
@@ -179,7 +179,7 @@ w = tkr.Label(
 )
 w.pack()
 
-# first input: name of the image with the object to be used in new background
+# first input: name of the image with the object to be used in the new background
 w = tkr.Label(
     root, text="Please write the name of the main image file", font=large_font)
 w.pack(pady=(50, 0))  # packs info text
@@ -193,7 +193,7 @@ w.pack()  # packs info text
 bg_filename = w = tkr.Entry(root, width="30", font=large_font)
 w.pack(ipady=10, pady=(10, 10))  # packs input
 
-# submit button -> calls function getInpu
+# submit button -> calls function getInput
 w = tkr.Button(root, text="Finish", command=getInput, height=2, width=30)
 w.pack()  # packs button
 

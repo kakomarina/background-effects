@@ -1,9 +1,16 @@
+#
+# Contains change background methods in the clustering method such as image resize, 
+# image scrolling from left to right and right to left to identificate and change all of the background pixels
+#
+#
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 from skimage import transform
 
 
-# resize background to the same size of the given image
+# resize background to the same size of the main image
 def resize_background(background, M, N, C):
 
     background_resized = np.zeros((N, M, C))
@@ -11,6 +18,8 @@ def resize_background(background, M, N, C):
 
     return background_resized
 
+# the main function for the background changes
+# calls the functions to resize hte image and change the background
 
 def change_background(img_original, background, clustered_img, colors_to_change):
     print(colors_to_change)
