@@ -99,7 +99,7 @@ def callback(event):
     global x, y, colors, tag
     x = event.x
     y = event.y
-    im = Image.open("girl1.jpg")
+    im = Image.open("clustered_img.jpg")
     pixel = im.load()
     colors.append(pixel[x, y])
     print(colors)
