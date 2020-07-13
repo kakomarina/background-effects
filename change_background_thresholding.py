@@ -51,7 +51,7 @@ def right_to_left(img, background, bool_img):
     return img
 
 
-def change_background(img, background, bool_img):
+def change_background_thresholding(img, background, bool_img):
 
     N, M, C = img.shape
     background = resize_background2(background, N, M, C)
