@@ -18,6 +18,8 @@ def change_background(img_original, background, clustered_img, colors_to_change)
     img_bg_changed = np.array(img_original, copy=True)
 
     for color in colors_to_change:
+        # img_bg_changed = np.where(
+        #     clustered_img == color, background, img_bg_changed)
         img_bg_changed = np.where(
             clustered_img == color, background, img_bg_changed)
 

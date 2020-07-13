@@ -32,9 +32,9 @@ def clear(root):
 
 def background_effects():
     global filename, bg_name, root2, root1, canvas, colors, largura, altura, large_font, img_clustered
-    
+
     colors.pop()
-    
+
     # reading original image, where the effect is going to be apllied,
     # and grayscale, where the segmentation is going to take place
 
@@ -54,13 +54,13 @@ def background_effects():
     # bg = imageio.imread(bg_name)
     bg = Image.open(bg_name)
 
-    #print("Generating clustered image...")
-    #img_clustered = clustering(img_original)
-    #imageio.imwrite("clustered_img.jpg", img_clustered.astype(np.uint8))
+    # print("Generating clustered image...")
+    # img_clustered = clustering(img_original)
+    # imageio.imwrite("clustered_img.jpg", img_clustered.astype(np.uint8))
 
     print("Changing background...")
     img_bg_changed = change_background(
-        img_original, bg, img_clustered, colors)
+        img_original, bg, img_clustered.astype(np.uint8), colors)
     imageio.imwrite("output_img.png", img_bg_changed.astype(np.uint8))
 
     destroy_root(root1)
@@ -94,7 +94,7 @@ def motion(event):
 
 def callback(event):
     global filename
-    
+
     print("clicked at", event.x, event.y)
     global x, y, colors, tag
     x = event.x
@@ -112,15 +112,15 @@ def image_interface():
 
     canvas = tkr.Canvas(root1, width=largura, height=altura)
     canvas.grid()
-    
+
     img_original = imageio.imread(filename)
-    #img = ImageTk.PhotoImage(Image.open(filename))
+    # img = ImageTk.PhotoImage(Image.open(filename))
     print("Generating clustered image...")
     img_clustered = clustering(img_original)
     imageio.imwrite("clustered_img.jpg", img_clustered.astype(np.uint8))
-    
+
     clust_img = ImageTk.PhotoImage(Image.open("clustered_img.jpg"))
-    
+
     canvas.create_image(0, 0, anchor="nw", image=clust_img)
     root1.bind("<Motion>", motion)
     root1.bind("<Button-1>", callback)
@@ -152,8 +152,8 @@ def getInput():
 
 # filename = str(input()).rstrip()#reads Image File
 
-#filename = "girl1.jpg"
-#bg_filename = "bg_mata.jpg"
+# filename = "girl1.jpg"
+# bg_filename = "bg_mata.jpg"
 
 # declaring global variables (different master for each graphic interface), global canva
 root1 = 0
@@ -162,16 +162,16 @@ canvas = 0
 main_img = 0
 img_clustered = 0
 
-#input_img = imageio.imread(filename)
-#img = np.array(input_img)
+# input_img = imageio.imread(filename)
+# img = np.array(input_img)
 # img = img.astype(np.int32)  # casting para realizar as funcoes
 
 
 # creates mold for final image
 """background_effects(filename)"""
-#altura, largura, profundidade = img.shape
+# altura, largura, profundidade = img.shape
 colors = []
-#onClick = False
+# onClick = False
 root = tkr.Tk()
 
 root.geometry("500x500")
@@ -186,6 +186,8 @@ w = tkr.Label(
     text="Please write the name of the main image\n After the image appears, please click all areas\n that you wish to be shown in the final image \n with the new background and press Finish. \n The image will be saved in your computer with the name output.png",
     anchor=tkr.NW,
     font=small_font,
+
+
 )
 w.pack()
 
