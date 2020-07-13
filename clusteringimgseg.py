@@ -24,7 +24,7 @@ def median_filter(img, k):
 
 def clustering(img):
     img = img / 255  # dividing by 255 to bring the pixel values between 0 and 1
-    img = median_filter(img, 5)
+    #img = median_filter(img, 5)
     img_n = img.reshape(img.shape[0]*img.shape[1], img.shape[2])
 
     kmeans = KMeans(n_clusters=5, random_state=0).fit(img_n)
