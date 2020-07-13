@@ -89,7 +89,7 @@ def getColor(event):
     x = event.x
     y = event.y
 
-    im = Image.open("clustered_img.jpg")  # opens clustered image
+    im = Image.open("clustered_img.png")  # opens clustered image
     pixel = im.load()  # gets pixel color
     colors.append(pixel[x, y])  # insert color in colors array
     print(colors)
