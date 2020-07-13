@@ -183,7 +183,7 @@ w = tkr.Label(root, text="Instructions", font="bold")
 w.pack(pady=(10, 0))
 w = tkr.Label(
     root,
-    text="Please write the name of the main image\n After the image appears, please click all areas\n that you wish to be shown in the final image \n with the new background and press Finish. \n The image will be saved in your computer with the name output.png",
+    text="Please write the name of the main image\n After the image appears, please click all areas\n that you wish to replace with the new background \n in the final image and press Finish. \n The image will be saved in your computer with the name output.png",
     anchor=tkr.NW,
     font=small_font,
 )
