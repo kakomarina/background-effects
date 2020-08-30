@@ -1,5 +1,6 @@
 #
 # Old main : before the graphic interface was implemented
+# File out of date
 #
 
 import numpy as np

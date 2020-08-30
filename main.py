@@ -37,20 +37,20 @@ def background_effects():
     label.grid(row=altura, column=0)
     root1.update()
 
-    img_original = imageio.imread(filename)
-    bg = Image.open(bg_filename)
+    img_original = imageio.imread("img/" + filename)
+    bg = Image.open("img/" + bg_filename)
 
     # changes background
     print("Changing background...")
     img_bg_changed = change_background(
         img_original, bg, img_clustered.astype(np.uint8), colors)
-    imageio.imwrite("output_img.png", img_bg_changed.astype(np.uint8))
+    imageio.imwrite("img/" + "output_img.png", img_bg_changed.astype(np.uint8))
 
     destroy_root(root1)  # destroy interface page 1
 
     # saves outputfile
     output_filename = "output_img.png"
-    imageio.imwrite(output_filename, img_bg_changed)
+    imageio.imwrite("img/" + output_filename, img_bg_changed)
 
     # INTERFACE PAGE 2 (shows image with changed backround)
     root2 = tkr.Tk()  # master of interface page 2
@@ -60,7 +60,7 @@ def background_effects():
     canvas.grid()
 
     # shows final image
-    final_img = ImageTk.PhotoImage(Image.open(output_filename))
+    final_img = ImageTk.PhotoImage(Image.open("img/" + output_filename))
     canvas.create_image(0, 0, anchor="nw", image=final_img)
 
     # createsclose button -> calls close_interface
@@ -88,7 +88,7 @@ def getColor(event):
     x = event.x
     y = event.y
 
-    im = Image.open("clustered_img.png")  # opens clustered image
+    im = Image.open("img/" + "clustered_img.png")  # opens clustered image
     pixel = im.load()  # gets pixel color
     colors.append(pixel[x, y])  # insert color in colors array
     print(colors)
@@ -103,7 +103,7 @@ def image_interface():
     label.pack(pady=(10, 10))
     root.update()
 
-    img_original = imageio.imread(filename)
+    img_original = imageio.imread("img/" + filename)
 
     # gets image dimensions and stores height, width and depth (colors of the image)
     temporary_img_original = np.array(img_original)
@@ -112,7 +112,7 @@ def image_interface():
 
     print("Generating clustered image...")
     img_clustered = clustering(img_original)  # generates clustered image
-    imageio.imwrite("clustered_img.png", img_clustered.astype(
+    imageio.imwrite("img/" +"clustered_img.png", img_clustered.astype(
         np.uint8))  # saves file with clustered image
 
     destroy_root(root)  # destroys interface page 0
@@ -123,7 +123,7 @@ def image_interface():
     canvas = tkr.Canvas(root1, width=largura, height=altura)
     canvas.grid()
 
-    clust_img = ImageTk.PhotoImage(Image.open(
+    clust_img = ImageTk.PhotoImage(Image.open("img/" +
         "clustered_img.png"))  # opens clustered image
     # sets image in interface
     canvas.create_image(0, 0, anchor="nw", image=clust_img)

@@ -5,7 +5,7 @@
 import imageio
 import matplotlib.pyplot as plt
 import numpy as np
-from sklearn.cluster import KMeans
+from sklearn.cluster import KMeans, AffinityPropagation
 
 
 # Normalization of the image so the image can be saved
@@ -33,8 +33,10 @@ def clustering(img):
     #img = median_filter(img, 5)
     img_n = img.reshape(img.shape[0]*img.shape[1], img.shape[2])
 
-    kmeans = KMeans(n_clusters=5, random_state=0).fit(img_n) # number of clusters is 5
-    img2show = kmeans.cluster_centers_[kmeans.labels_]
+    # kmeans = KMeans(n_clusters=5, random_state=0).fit(img_n) # number of clusters is 5
+    affinity = AffinityPropagation().fit(img_n)
+    # img2show = kmeans.cluster_centers_[kmeans.labels_]
+    img2show = affinity.cluster_centers_[affinity.labels_]
 
     cluster_img = img2show.reshape(img.shape[0], img.shape[1], img.shape[2])
 
